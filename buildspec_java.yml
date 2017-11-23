@@ -11,8 +11,8 @@ phases:
       - mvn package
       - cd ../ByeWorldLambda && mvn package
       - aws cloudformation package --template-file samTemplate.yaml --s3-bucket amndev-builds --output-template-file projectw-cfn-template.yaml
-  artifacts:
-    types: zip
-    files:
-      - projectw-cfn-template.yaml
+artifacts:
+  types: zip
+  files:
+    - projectw-cfn-template.yaml
 
