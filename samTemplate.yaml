@@ -5,13 +5,13 @@ Resources:
   GetPositionDetails:
     Type: AWS::Serverless::Function
     Properties:
-    Handler: com.amazonaws.lambda.hello.LambdaFunctionHandler::handleRequest
-    Runtime: java8
-    CodeUri: ./HelloWorldLambda/target/hello-1.0.0.jar
-    Environment:
-      API_USERNAME: !Sub '${API_USERNAME}'
-      API_PASSWORD: !Sub '${API_PASSWORD}'
-      SW_API_URL: !Sub '${SHIFTWISE_API_URL}'
+      Handler: com.amazonaws.lambda.hello.LambdaFunctionHandler::handleRequest
+      Runtime: java8
+      CodeUri: ./HelloWorldLambda/target/hello-1.0.0.jar
+      Environment:
+        API_USERNAME: !Sub '${API_USERNAME}'
+        API_PASSWORD: !Sub '${API_PASSWORD}'
+        SW_API_URL: !Sub '${SHIFTWISE_API_URL}'
   ShiftwiseNotification:
     Type: AWS::Serverless::Function
     Properties:
