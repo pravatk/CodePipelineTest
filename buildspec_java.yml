@@ -9,7 +9,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - mvn package
-      - cd ../ByeWorldLambda && mvn package
+      - cd ../ByeWorldLambda && mvn package && cd ..
       - aws cloudformation package --template-file samTemplate.yaml --s3-bucket lambda-deployment-code --output-template-file projectw-cfn-template.yaml
 artifacts:
   types: zip
