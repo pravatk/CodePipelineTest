@@ -15,4 +15,5 @@ artifacts:
   types: zip
   files:
     - projectw-cfn-template.yaml
+    - projectw-cfn-parameter.json
 
