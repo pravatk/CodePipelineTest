@@ -2,13 +2,13 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: This is the function to get Position details given a position id from SW SOAP APIs
 Parameters: 
-  API_USERNAME:
+  ApiUsername:
     Type: String
     Description: This is the ShiftWise Endpoint Username that will be used when invoking SW APIs. This must be encrypted using KMS key
-  API_PASSWORD:
+  ApiPassword:
     Type: String
     Description: This is the ShiftWise Endpoint password that will be used when invoking SW APIs. This must be encrypted using KMS key
-  SHIFTWISE_API_URL:
+  ShiftWiseURL:
     Type: String
     Description: This is the ShiftWise Endpoint URL that will be used to invoke SOAP APIs
 Resources:
@@ -19,9 +19,9 @@ Resources:
       Runtime: java8
       CodeUri: ./HelloWorldLambda/target/hello-1.0.0.jar
       Environment:
-        API_USERNAME: !Ref API_USERNAME
-        API_PASSWORD: !Ref API_PASSWORD
-        SW_API_URL: !Ref SHIFTWISE_API_URL
+        API_USERNAME: !Ref ApiUsername
+        API_PASSWORD: !Ref ApiPassword
+        SW_API_URL: !Ref ShiftWiseURL
   ShiftwiseNotification:
     Type: AWS::Serverless::Function
     Properties:
@@ -29,6 +29,6 @@ Resources:
       Runtime: java8
       CodeUri: ./ByeWorldLambda/target/bye-1.0.0.jar
       Environment:
-        API_USERNAME: !Ref API_USERNAME
-        API_PASSWORD: !Ref API_PASSWORD
-        SW_API_URL: !Ref SHIFTWISE_API_URL
+        API_USERNAME: !Ref ApiUsername
+        API_PASSWORD: !Ref ApiPassword
+        SW_API_URL: !Ref ShiftWiseURL
