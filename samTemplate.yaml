@@ -18,17 +18,21 @@ Resources:
       Handler: com.amazonaws.lambda.hello.LambdaFunctionHandler::handleRequest
       Runtime: java8
       CodeUri: ./HelloWorldLambda/target/hello-1.0.0.jar
+      Role: arn:aws:iam::706469024316:role/lambda_custom_role
       Environment:
-        API_USERNAME: !Ref ApiUsername
-        API_PASSWORD: !Ref ApiPassword
-        SW_API_URL: !Ref ShiftWiseURL
+        Variables:
+          API_USERNAME: !Ref ApiUsername
+          API_PASSWORD: !Ref ApiPassword
+          SW_API_URL: !Ref ShiftWiseURL
   ShiftwiseNotification:
     Type: AWS::Serverless::Function
     Properties:
       Handler: com.amazonaws.lambda.bye.LambdaFunctionHandler::handleRequest
       Runtime: java8
       CodeUri: ./ByeWorldLambda/target/bye-1.0.0.jar
+      Role: arn:aws:iam::706469024316:role/lambda_custom_role
       Environment:
-        API_USERNAME: !Ref ApiUsername
-        API_PASSWORD: !Ref ApiPassword
-        SW_API_URL: !Ref ShiftWiseURL
+        Variables:
+          API_USERNAME: !Ref ApiUsername
+          API_PASSWORD: !Ref ApiPassword
+          SW_API_URL: !Ref ShiftWiseURL
