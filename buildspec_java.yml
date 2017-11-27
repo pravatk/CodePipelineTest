@@ -1,3 +1,5 @@
+# This is the build specification for building java based lambda.
+# First step in the process is to run the test and then perform package and upload the package to S3
 version: 0.2
 phases:
   build:
