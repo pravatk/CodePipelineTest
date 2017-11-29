@@ -2,6 +2,15 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: This is the function to get Position details given a position id from SW SOAP APIs
 Parameters: 
+  ApiUsername:
+    Type: String
+    Description: This is the ShiftWise Endpoint Username that will be used when invoking SW APIs. This must be encrypted using KMS key
+  ApiPassword:
+    Type: String
+    Description: This is the ShiftWise Endpoint password that will be used when invoking SW APIs. This must be encrypted using KMS key
+  ShiftWiseURL:
+    Type: String
+    Description: This is the ShiftWise Endpoint URL that will be used to invoke SOAP APIs
   SlackChannel:
     Type: String
     Description: Slack channel for notifications
