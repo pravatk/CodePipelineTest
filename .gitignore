@@ -3,3 +3,5 @@ bin
 target
 .project
 .classpath
+node_modules/
+code.zip

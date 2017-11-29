@@ -2,6 +2,8 @@
   "Parameters" : {
     "ApiUsername" : "AQICAHiH13KUFzsgYLKk0P7SlDYjzrHAX/LIGrIoyKRnIOlcfgF3lLh9MKVpkUF2wd/9HWFrAAAAZDBiBgkqhkiG9w0BBwagVTBTAgEAME4GCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM9ecGP3Bx/62actYRAgEQgCFXVbocAR9EGrp5KaH5eWoMcHg+0EHUukDpjWSxve7a+5U=",
     "ApiPassword" : "AQICAHiH13KUFzsgYLKk0P7SlDYjzrHAX/LIGrIoyKRnIOlcfgGsRL5x8JYT0pPObpkAKCHSAAAAaDBmBgkqhkiG9w0BBwagWTBXAgEAMFIGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQM0XVPJkn4zymYUfNAAgEQgCVQS7X/fShxYYB8MVsPocyS8Pj5UP2D4z3UgBPHu8HL96J9EC1J",
-    "ShiftWiseURL" : "http://www.shiftwise.net/SWServices"
+    "ShiftWiseURL" : "http://www.shiftwise.net/SWServices",
+    "SlackChannel" : "",
+    "SlackWebhookUrl" : ""
   }
 }

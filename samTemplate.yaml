@@ -11,6 +11,12 @@ Parameters:
   ShiftWiseURL:
     Type: String
     Description: This is the ShiftWise Endpoint URL that will be used to invoke SOAP APIs
+  SlackChannel:
+    Type: String
+    Description: Slack channel for notifications
+  SlackWebhookUrl:
+    Type: String
+    Description: Slack webhook
 Resources:
   GetPositionDetails:
     Type: AWS::Serverless::Function
@@ -36,3 +42,22 @@ Resources:
           API_USERNAME: !Ref ApiUsername
           API_PASSWORD: !Ref ApiPassword
           SW_API_URL: !Ref ShiftWiseURL
+  CodeBuildNotification:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: projectw-sns-slack.handler
+      Runtime: nodejs4.3
+      CodeUri: ./lambda/others/sns-slack/code.zip
+      Description: This is the lambda that is triggered when a message is posted in SNS topic and notifies the same in the slack channel
+      MemorySize: 128
+      Timeout: 60
+      Role: 'arn:aws:iam::624712323177:role/projectw-role-lambda-dev'
+      Events:
+        CodeBuildTopic:
+          Type: SNS
+          Properties:
+            Topic: arn:aws:sns:us-east-1:706469024316:SendEmailNotification
+      Environment:
+        Variables:
+          SLACK_CHANNEL: !Ref SlackChannel
+          SLACK_WEBHOOK_URL: !Ref SlackWebhookUrl
