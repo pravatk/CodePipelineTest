@@ -15,10 +15,10 @@ phases:
     commands:
       - echo Build completed on `date`
       - cd $HOME_DIR
-      - aws cloudformation package --template-file samTemplate.yaml --s3-bucket lambda-deployment-code --output-template-file projectw-cfn-template.yaml
+      - aws cloudformation package --template-file samTemplate_node.yaml --s3-bucket lambda-deployment-code --output-template-file projectw-cfn-template-node.yaml
 artifacts:
   types: zip
   files:
-    - projectw-cfn-template.yaml
+    - projectw-cfn-template-node.yaml
     - projectw-cfn-parameter.json
 

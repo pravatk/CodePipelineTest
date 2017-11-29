@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: This is the function to get Position details given a position id from SW SOAP APIs
+Parameters: 
+  SlackChannel:
+    Type: String
+    Description: Slack channel for notifications
+  SlackWebhookUrl:
+    Type: String
+    Description: Slack webhook
+Resources:
+  CodeBuildNotification:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: projectw-sns-slack.handler
+      Runtime: nodejs4.3
+      CodeUri: ./lambda/others/sns-slack/code.zip
+      Description: This is the lambda that is triggered when a message is posted in SNS topic and notifies the same in the slack channel
+      MemorySize: 128
+      Timeout: 60
+      Role: 'arn:aws:iam::624712323177:role/projectw-role-lambda-dev'
+      Events:
+        CodeBuildTopic:
+          Type: SNS
+          Properties:
+            Topic: arn:aws:sns:us-east-1:706469024316:SendEmailNotification
+      Environment:
+        Variables:
+          SLACK_CHANNEL: !Ref SlackChannel
+          SLACK_WEBHOOK_URL: !Ref SlackWebhookUrl

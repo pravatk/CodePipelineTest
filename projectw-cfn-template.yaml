@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: This is the function to get Position details given a position id from
+  SW SOAP APIs
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  GetPositionDetails:
+    Properties:
+      CodeUri: s3://lambda-deployment-code/4b91521080d6285a6a10ac8398471f51
+      Environment:
+        API_PASSWORD:
+          Fn::Sub: ${API_PASSWORD}
+        API_USERNAME:
+          Fn::Sub: ${API_USERNAME}
+        SW_API_URL:
+          Fn::Sub: ${SHIFTWISE_API_URL}
+      Handler: com.amazonaws.lambda.hello.LambdaFunctionHandler::handleRequest
+      Runtime: java8
+    Type: AWS::Serverless::Function
+  ShiftwiseNotification:
+    Properties:
+      CodeUri: s3://lambda-deployment-code/2590ac74a7e6435cfdd8748e985c7d02
+      Environment:
+        API_PASSWORD:
+          Fn::Sub: ${API_PASSWORD}
+        API_USERNAME:
+          Fn::Sub: ${API_USERNAME}
+        SW_API_URL:
+          Fn::Sub: ${SHIFTWISE_API_URL}
+      Handler: com.amazonaws.lambda.bye.LambdaFunctionHandler::handleRequest
+      Runtime: java8
+    Type: AWS::Serverless::Function
