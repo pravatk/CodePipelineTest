@@ -17,10 +17,10 @@ phases:
       - aws cloudformation package --template-file samTemplate_java.yaml --s3-bucket lambda-deployment-code --output-template-file projectw-cfn-template-java.yaml
       - cd $BUILD_DIR/ByeWorldLambda/target/site/jacoco-ut
       - zip -9rq bye_report.zip .
-      - aws s3 cp bye_report.zip s3://projectw-code-coverage-reports/bye/$BUILD_ID
+      - aws s3 cp bye_report.zip s3://projectw-code-coverage-reports/bye/$BUILD_ID/ByeWordLambda.zip
       - cd $BUILD_DIR/HelloWorldLambda/target/site/jacoco-ut
       - zip -9rq hello_report.zip .
-      - aws s3 cp hello_report.zip s3://projectw-code-coverage-reports/hello/$BUILD_ID
+      - aws s3 cp hello_report.zip s3://projectw-code-coverage-reports/hello/$BUILD_ID/HelloWorldLambda.zip
 artifacts:
   types: zip
   files:
