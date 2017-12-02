@@ -13,7 +13,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - mvn package
-      - cd ../ByeWorldLambda && mvn package && cd ..
+      - cd ../ByeWorldLambda && mvn package
       - aws cloudformation package --template-file samTemplate_java.yaml --s3-bucket lambda-deployment-code --output-template-file projectw-cfn-template-java.yaml
       ## Collect the code coverage reports and upload to s3
       - cd $BUILD_DIR/ByeWorldLambda/target/site/jacoco-ut
