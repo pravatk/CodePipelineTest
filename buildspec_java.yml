@@ -6,7 +6,7 @@ phases:
     commands:
       - echo Build started on `date`
       - export BUILD_DIR=$PWD
-      - export BUILD_ID=`$CODEBUILD_BUILD_ID | sed -e 's/:/\n/g' | awk 'NR==2'`
+      - export BUILD_ID=`echo $CODEBUILD_BUILD_ID | sed -e 's/:/\n/g' | awk 'NR==2'`
       - cd ByeWorldLambda && mvn test
       - cd ../HelloWorldLambda && mvn test
   post_build:
