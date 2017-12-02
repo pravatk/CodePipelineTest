@@ -15,6 +15,7 @@ phases:
       - mvn package
       - cd ../ByeWorldLambda && mvn package && cd ..
       - aws cloudformation package --template-file samTemplate_java.yaml --s3-bucket lambda-deployment-code --output-template-file projectw-cfn-template-java.yaml
+      ## Collect the code coverage reports and upload to s3
       - cd $BUILD_DIR/ByeWorldLambda/target/site/jacoco-ut
       - zip -9rq bye_report.zip .
       - aws s3 cp bye_report.zip s3://projectw-code-coverage-reports/bye/$BUILD_ID/ByeWordLambda.zip
