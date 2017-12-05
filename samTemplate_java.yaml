@@ -42,3 +42,9 @@ Resources:
           API_USERNAME: !Ref ApiUsername
           API_PASSWORD: !Ref ApiPassword
           SW_API_URL: !Ref ShiftWiseURL
+      Events:
+        HttpPost:
+          Type: Api
+          Properties:
+            Path: OnboardLogin/login
+            Method: post
