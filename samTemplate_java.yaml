@@ -46,5 +46,5 @@ Resources:
         HttpPost:
           Type: Api
           Properties:
-            Path: 'OnboardLogin/login'
+            Path: /login
             Method: post
