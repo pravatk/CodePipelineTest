@@ -17,7 +17,7 @@ Parameters:
   SlackWebhookUrl:
     Type: String
     Description: Slack webhook
-Output:
+Outputs:
   CodeBuildNotification:
     Description: ARN for CodeBuildNotification
     Value: !GetAtt CodeBuildNotification.Arn

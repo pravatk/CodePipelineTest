@@ -17,7 +17,7 @@ Parameters:
   SlackWebhookUrl:
     Type: String
     Description: Slack webhook
-Output:
+Outputs:
   GetPositionDetails:
     Description: ARN for GetPositionDetails
     Value: !GetAtt GetPositionDetails.Arn
