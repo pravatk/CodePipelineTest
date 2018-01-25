@@ -17,6 +17,13 @@ Parameters:
   SlackWebhookUrl:
     Type: String
     Description: Slack webhook
+Output:
+  GetPositionDetails:
+    Description: ARN for GetPositionDetails
+    Value: !GetAtt GetPositionDetails.Arn
+  ShiftwiseNotification:
+    Description: ARN for ShiftwiseNotification
+    Value: !GetAtt ShiftwiseNotification.Arn
 Resources:
   GetPositionDetails:
     Type: AWS::Serverless::Function

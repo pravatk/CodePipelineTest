@@ -17,6 +17,10 @@ Parameters:
   SlackWebhookUrl:
     Type: String
     Description: Slack webhook
+Output:
+  CodeBuildNotification:
+    Description: ARN for CodeBuildNotification
+    Value: !GetAtt CodeBuildNotification.Arn
 Resources:
   CodeBuildNotification:
     Type: 'AWS::Serverless::Function'
