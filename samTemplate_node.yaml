@@ -20,7 +20,7 @@ Parameters:
 Outputs:
   CodeBuildNotification:
     Description: ARN for CodeBuildNotification
-    Value: !GetAtt CodeBuildNotification.FunctionName
+    Value: !GetAtt CodeBuildNotification.Arn
 Resources:
   CodeBuildNotification:
     Type: 'AWS::Serverless::Function'

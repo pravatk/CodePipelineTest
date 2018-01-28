@@ -11,10 +11,12 @@ for root, subdir, files in os.walk(json_path):
           content = f.read()
           output = json.loads(content)
           for key in output:
-              print 'Processing function: '+output[key]
-              version = os.popen('aws lambda publish-version --function-name ' + output[key] + ' --output text --query Version')
-              alias_out = os.popen('aws lambda create-alias --function-name ' + output[key] + ' --function-version ' + version + ' --name ' + alias)
+              print 'Processing function: ' + output[key]
+              arn = output[key]
+              function_name = arn.split[':'][6]
+              version = os.popen('aws lambda publish-version --function-name ' + function_name + ' --output text --query Version')
+              alias_out = os.popen('aws lambda create-alias --function-name ' + function_name + ' --function-version ' + version + ' --name ' + alias)
               if 'ResourceConflictException' in alias_out:
                 print 'Updating the alias: ' + alias + ' for lambda: ' + output[key]
-                update_alias = os.popen('aws lambda update-alias --function-name ' + output[key] + ' --function-version ' + version + ' --name ' + alias)
+                update_alias = os.popen('aws lambda update-alias --function-name ' + function_name + ' --function-version ' + version + ' --name ' + alias)
       f.close()

@@ -20,10 +20,10 @@ Parameters:
 Outputs:
   GetPositionDetails:
     Description: ARN for GetPositionDetails
-    Value: !GetAtt GetPositionDetails.FunctionName
+    Value: !GetAtt GetPositionDetails.Arn
   ShiftwiseNotification:
     Description: ARN for ShiftwiseNotification
-    Value: !GetAtt ShiftwiseNotification.FunctionName
+    Value: !GetAtt ShiftwiseNotification.Arn
 Resources:
   GetPositionDetails:
     Type: AWS::Serverless::Function
