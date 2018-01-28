@@ -21,4 +21,5 @@ artifacts:
   files:
     - projectw-cfn-template-node.yaml
     - projectw-cfn-parameter.json
+    - projectw-cfn-parameter-qa.json
 
