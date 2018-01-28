@@ -30,6 +30,7 @@ Resources:
       CodeUri: ./lambda/others/sns-slack/code.zip
       Description: This is the lambda that is triggered when a message is posted in SNS topic and notifies the same in the slack channel
       MemorySize: 128
+      FunctionName: projectw-dev-node-stack-CodeBuildNotification-1HOTZLYCZ4F55
       Timeout: 60
       Role: arn:aws:iam::706469024316:role/lambda_custom_role
       Events:

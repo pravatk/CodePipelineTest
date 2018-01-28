@@ -27,6 +27,7 @@ Outputs:
 Resources:
   GetPositionDetails:
     Type: AWS::Serverless::Function
+    FunctionName: projectw-dev-stack1-GetPositionDetails-1DFH6ZSE6CTWM
     Properties:
       Handler: com.amazonaws.lambda.hello.LambdaFunctionHandler::handleRequest
       Runtime: java8
@@ -44,6 +45,7 @@ Resources:
       Runtime: java8
       CodeUri: ./ByeWorldLambda/target/bye-1.0.0.jar
       Role: arn:aws:iam::706469024316:role/lambda_custom_role
+      FunctionName: projectw-dev-stack1-ShiftwiseNotification-36K05V1K3QSK
       Environment:
         Variables:
           API_USERNAME: !Ref ApiUsername
