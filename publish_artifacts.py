@@ -31,7 +31,7 @@ with open('tmpJson.json') as f:
       print 'Processing function: ' + fun_details['FunctionName']
       function_name = fun_details['FunctionName']
       if is_version:
-        cmd = 'aws lambda publish-version --function-name ' + function_name
+        cmd = ['aws','lambda','publish-version','--function-name', function_name]
         try:
           proc = subprocess.check_output(cmd)
           print proc
@@ -45,7 +45,7 @@ with open('tmpJson.json') as f:
         version = '$LATEST'
       
       print 'Updating the alias: ' + alias + ' for lambda: ' + function_name
-      cmd = 'aws lambda update-alias --function-name ' + function_name + ' --function-version ' + version + ' --name ' + alias
+      cmd = ['aws', 'lambda', 'update-alias', '--function-name', function_name, '--function-version', version, '--name', alias]
       try:
           proc = subprocess.check_output(cmd)
           print proc
@@ -53,14 +53,14 @@ with open('tmpJson.json') as f:
         print err.returncode
         print err.message
         print 'Creating the alias: ' + alias + ' for function: ' + function_name
-        cmd = 'aws lambda create-alias --function-name ' + function_name + ' --function-version ' + version + ' --name ' + alias + ' --query AliasArn'
+        cmd = ['aws', 'lambda', 'create-alias', '--function-name', function_name, '--function-version', version, '--name', alias , '--query', 'AliasArn']
         try:
           proc = subprocess.check_output(cmd)
           print proc
         except subprocess.CalledProcessError as inner_err:
           print inner_err.message
 f.close()
-cmd = 'aws codepipeline put-job-success-result --job-id ' + job_id
+cmd = ['aws', 'codepipeline', 'put-job-success-result', '--job-id', job_id]
 try:
   proc = subprocess.check_output(cmd)
   print proc
