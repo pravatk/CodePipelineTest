@@ -32,7 +32,7 @@ with open('tmpJson.json') as f:
       function_name = fun_details['FunctionName']
       if is_version:
         cmd = 'aws lambda publish-version --function-name ' + function_name
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=None, shell=True)
+        process = subprocess.Popen(['aws', 'lambda', 'publish-version', '--function-name', function_name], stdout=subprocess.PIPE, stderr=None, shell=True)
         ver = process.communicate()
         version_json = json.loads(ver[0])
         version = version_json['Version']
@@ -42,9 +42,9 @@ with open('tmpJson.json') as f:
       print 'Updating the alias: ' + alias + ' for lambda: ' + function_name
       cmd = 'aws lambda update-alias --function-name ' + function_name + ' --function-version ' + version + ' --name ' + alias
       print cmd
-      process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True, stderr=subprocess.STDOUT)
+      process = subprocess.Popen(['aws', 'lambda', 'update_alias', '--function-name', function_name, '--function-version', version, '--name', alias], stdout=subprocess.PIPE, shell=True, stderr=subprocess.STDOUT)
       update_alias = process.communicate()
-      print 'Output from Update Alias: ' + update_alias[0]
+      print 'Output from Update Alias: ' + update_alias[0] + ' ' + update_alias[1]
       if update_alias[0].find('ResourceNotFoundException') != -1:
         print 'Creating the alias: ' + alias + ' for function: ' + function_name
         cmd = 'aws lambda create-alias --function-name ' + function_name + ' --function-version ' + version + ' --name ' + alias + ' --query AliasArn'
