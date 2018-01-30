@@ -41,16 +41,16 @@ with open('tmpJson.json') as f:
         version = '$LATEST'
       print 'Updating the alias: ' + alias + ' for lambda: ' + function_name
       cmd = 'aws lambda update-alias --function-name ' + function_name + ' --function-version ' + version + ' --name ' + alias
-      process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True, stderr=None)
+      process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True, stderr=subprocess.STDOUT)
       update_alias = process.communicate()
       print 'Output from Update Alias: ' + update_alias[0]
       if update_alias[0].find('ResourceNotFoundException') != -1:
         print 'Creating the alias: ' + alias + ' for function: ' + function_name
-        cmd = 'aws lambda create-alias --function-name ' + function_name + ' --function-version ' + version_json['Version'] + ' --name ' + alias + ' --query AliasArn'
+        cmd = 'aws lambda create-alias --function-name ' + function_name + ' --function-version ' + version + ' --name ' + alias + ' --query AliasArn'
         print cmd
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True, stderr=subprocess.STDOUT)
         alias_str = process.communicate()
   f.close()
-  process = subprocess.Popen('aws lambda put-job-success-result --job-id ' + job_id, stdout=subprocess.PIPE, stderr=None, shell=True)
+  process = subprocess.Popen('aws codepipeline put-job-success-result --job-id ' + job_id, stdout=subprocess.PIPE, stderr=None, shell=True)
   res = process.communicate()
   print 'Output for Codepipeline Post: ' + res[0]
