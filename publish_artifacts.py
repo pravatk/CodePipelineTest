@@ -16,8 +16,11 @@ else:
 
 if 'CodePipelineJobId' in os.environ:
   job_id = os.environ['CodePipelineJobId']
+  print 'Job ID: ' + job_id
 # Runs the list-functions aws cli command to fetch all available lambdas
-os.system('aws lambda list-functions --query Functions > tmpJson.json')
+process = subprocess.Popen('aws lambda list-functions --query Functions > tmpJson.json',stdout=subprocess.PIPE, stderr=None, shell=True)
+print 'List functions output: ' + process.communicate()[0]
+
 with open('tmpJson.json') as f:
   all_function = f.read()
   fun_json = json.loads(all_function)
@@ -26,19 +29,20 @@ with open('tmpJson.json') as f:
     if 'projectw' in fun_details['FunctionName']:
       print 'Processing function: ' + fun_details['FunctionName']
       function_name = fun_details['FunctionName']
-      if is_version == True:
+      if is_version:
         cmd = 'aws lambda publish-version --function-name ' + function_name
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=None, shell=True)
         ver = process.communicate()
         version_json = json.loads(ver[0])
         version = version_json['Version']
       else:
+        print 'Marking the version as $LATEST'
         version = '$LATEST'
       print 'Updating the alias: ' + alias + ' for lambda: ' + function_name
       cmd = 'aws lambda update-alias --function-name ' + function_name + ' --function-version ' + version + ' --name ' + alias
       process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True, stderr=None)
       update_alias = process.communicate()
-      print update_alias[0]
+      print 'Output from Update Alias: ' + update_alias[0]
       if update_alias[0].find('ResourceNotFoundException') != -1:
         print 'Creating the alias: ' + alias + ' for function: ' + function_name
         cmd = 'aws lambda create-alias --function-name ' + function_name + ' --function-version ' + version_json['Version'] + ' --name ' + alias + ' --query AliasArn'
@@ -46,4 +50,5 @@ with open('tmpJson.json') as f:
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True, stderr=subprocess.STDOUT)
         alias_str = process.communicate()
   f.close()
-  os.system('aws put-job-success-result --job-id ' + job_id)
+  process = subprocess.Popen('aws put-job-success-result --job-id ' + job_id, stdout=subprocess.PIPE, stderr=None, shell=True)
+  print 'Output for Codepipeline Post: ' + process.communicate()[0]
