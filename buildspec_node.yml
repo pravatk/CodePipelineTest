@@ -25,4 +25,4 @@ artifacts:
     - copy_artifacts.py
     - copy_artifacts.yaml
     - lambda/others/sns-slack/sns-slack.zip
-
+    - samTemplate_node.yaml

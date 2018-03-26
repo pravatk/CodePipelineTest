@@ -30,19 +30,46 @@ s3 = boto3.client(
 # This script expects STEP_FUNCTION_ROLE_ARN as environment variables
 folder = str(time.time())
 artifact_folder = folder + '/' + 'artifacts'
+template_folder = folder + '/' + 'templates'
 for root, subdir, files in os.walk('.'):
     for fileName in files:
-        if fileName.endswith(".zip"):
-            file_path = os.path.join(root, fileName)
+        file_path = os.path.join(root, fileName)
+        if fileName.endswith(".zip") or fileName.endswith('.json'):
             print 'Uploading ' + fileName + ' from ' + file_path
+            if fileName.endswith(".zip"):
+                object_key = artifact_folder + '/' + fileName
+            else:
+                object_key = template_folder + '/' + fileName
             with open(file_path, 'rb') as f:
                 response = s3.put_object(
                     Body=f.read(),
                     Bucket=target_bucket,
-                    Key=artifact_folder + '/' + fileName,
+                    Key=object_key,
                     ServerSideEncryption='AES256'
                 )
-                print 'File putObject respone' + json.dumps(response)
+                print 'File putObject respone ' + json.dumps(response)
             f.close()
         else:
-            print 'Not interested file: ' + fileName
+            print 'Not interested file ' + file_path
+with open('samTemplate_node.yaml') as template:
+    lines = template.readlines()
+    with open('output_template.yaml', 'w') as output:
+        for line in lines:
+            if line.find('CodeUri') != -1:
+                x = line.split('/')
+                file_name = x[len(x) - 1]
+                code = 'CodeUri: s3://' + target_bucket + \
+                    '/' + artifact_folder + '/' + file_name
+                output.write(code)
+            else:
+                output.write(line)
+    output.close()
+template.close()
+with open('output_template.yaml', 'w') as output:
+    response = s3.put_object(
+        Body=output.read(),
+        Bucket=target_bucket,
+        Key=template_folder + '/' + fileName,
+        ServerSideEncryption='AES256'
+    )
+output.close()
