@@ -23,4 +23,5 @@ artifacts:
     - projectw-cfn-parameter.json
     - projectw-cfn-parameter-qa.json
     - copy_artifacts.py
+    - lambda/others/sns-slack/code.zip
 
