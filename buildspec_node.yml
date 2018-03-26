@@ -10,7 +10,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - zip -9rq code.zip .
+      - zip -9rq sns-slack.zip .
   post_build:
     commands:
       - echo Build completed on `date`
@@ -23,5 +23,6 @@ artifacts:
     - projectw-cfn-parameter.json
     - projectw-cfn-parameter-qa.json
     - copy_artifacts.py
-    - lambda/others/sns-slack/code.zip
+    - copy_artifacts.yaml
+    - lambda/others/sns-slack/sns-slack.zip
 

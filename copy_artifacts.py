@@ -12,7 +12,12 @@ assumedRoleObject = sts_client.assume_role(
     RoleArn=os.environ['ASSUME_ROLE_ARN'],
     RoleSessionName="AssumeRoleSession1"
 )
-print 'Assume role successful' + json.dumps(assumedRoleObject)
+try:
+    print 'Assume role successful' + json.dumps(json.loads(assumedRoleObject))
+except Exception as e:
+    print(e.message)
+    print e
+
 credentials = assumedRoleObject['Credentials']
 
 s3 = boto3.client(
