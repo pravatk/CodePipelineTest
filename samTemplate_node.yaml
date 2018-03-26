@@ -27,7 +27,7 @@ Resources:
     Properties:
       Handler: projectw-sns-slack.handler
       Runtime: nodejs4.3
-      CodeUri: ./lambda/others/sns-slack/code.zip
+      CodeUri: ./lambda/others/sns-slack/sns-slack.zip
       Description: This is the lambda that is triggered when a message is posted in SNS topic and notifies the same in the slack channel
       MemorySize: 128
       FunctionName: projectw-dev-node-stack-CodeBuildNotification-1HOTZLYCZ4F55
