@@ -12,7 +12,7 @@ assumedRoleObject = sts_client.assume_role(
     RoleArn=os.environ['ASSUME_ROLE_ARN'],
     RoleSessionName="AssumeRoleSession1"
 )
-
+print 'Assume role successful' + json.dumps(assumedRoleObject)
 credentials = assumedRoleObject['Credentials']
 
 s3 = boto3.client(
@@ -23,7 +23,7 @@ s3 = boto3.client(
 )
 # Iterate over all json files under statemachines folder and for each json, create a state machine.
 # This script expects STEP_FUNCTION_ROLE_ARN as environment variables
-folder = time.time()
+folder = str(time.time())
 artifact_folder = folder + '/' + 'artifacts'
 for root, subdir, files in os.walk('.'):
     for fileName in files:
@@ -37,7 +37,7 @@ for root, subdir, files in os.walk('.'):
                     Key=artifact_folder + '/' + fileName,
                     ServerSideEncryption='AES256'
                 )
-                print json.dumps(response)
+                print 'File putObject respone' + json.dumps(response)
             f.close()
         else:
             print 'Not interested file: ' + fileName
