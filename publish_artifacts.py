@@ -31,26 +31,39 @@ with open('tmpJson.json') as f:
       print 'Processing function: ' + fun_details['FunctionName']
       function_name = fun_details['FunctionName']
       if is_version:
-        cmd = 'aws lambda publish-version --function-name ' + function_name
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=None, shell=True)
-        ver = process.communicate()
-        version_json = json.loads(ver[0])
-        version = version_json['Version']
+        cmd = ['aws','lambda','publish-version','--function-name', function_name]
+        try:
+          proc = subprocess.check_output(cmd)
+          print proc
+          ver_json = json.loads(proc)
+          version = ver_json['Version']
+        except subprocess.CalledProcessError as err:
+          print err.returncode
+          print err.message
       else:
         print 'Marking the version as $LATEST'
         version = '$LATEST'
+      
       print 'Updating the alias: ' + alias + ' for lambda: ' + function_name
-      cmd = 'aws lambda update-alias --function-name ' + function_name + ' --function-version ' + version + ' --name ' + alias
-      process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True, stderr=subprocess.STDOUT)
-      update_alias = process.communicate()
-      print 'Output from Update Alias: ' + update_alias[0]
-      if update_alias[0].find('ResourceNotFoundException') != -1:
+      cmd = ['aws', 'lambda', 'update-alias', '--function-name', function_name, '--function-version', version, '--name', alias]
+      try:
+          proc = subprocess.check_output(cmd)
+          print proc
+      except subprocess.CalledProcessError as err:
+        print err.returncode
+        print err.message
         print 'Creating the alias: ' + alias + ' for function: ' + function_name
-        cmd = 'aws lambda create-alias --function-name ' + function_name + ' --function-version ' + version + ' --name ' + alias + ' --query AliasArn'
-        print cmd
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True, stderr=subprocess.STDOUT)
-        alias_str = process.communicate()
-  f.close()
-  process = subprocess.Popen('aws codepipeline put-job-success-result --job-id ' + job_id, stdout=subprocess.PIPE, stderr=None, shell=True)
-  res = process.communicate()
-  print 'Output for Codepipeline Post: ' + res[0]
+        cmd = ['aws', 'lambda', 'create-alias', '--function-name', function_name, '--function-version', version, '--name', alias , '--query', 'AliasArn']
+        try:
+          proc = subprocess.check_output(cmd)
+          print proc
+        except subprocess.CalledProcessError as inner_err:
+          print inner_err.message
+f.close()
+cmd = ['aws', 'codepipeline', 'put-job-success-result', '--job-id', job_id]
+try:
+  proc = subprocess.check_output(cmd)
+  print proc
+except subprocess.CalledProcessError as err:
+  print err.returncode
+  print err.message
