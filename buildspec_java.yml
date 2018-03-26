@@ -28,3 +28,4 @@ artifacts:
     - projectw-cfn-template-java.yaml
     - projectw-cfn-parameter.json
     - projectw-cfn-parameter-qa.json
+    - copy_artifacts.py

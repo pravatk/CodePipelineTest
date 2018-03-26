@@ -22,4 +22,5 @@ artifacts:
     - projectw-cfn-template-node.yaml
     - projectw-cfn-parameter.json
     - projectw-cfn-parameter-qa.json
+    - copy_artifacts.py
 
