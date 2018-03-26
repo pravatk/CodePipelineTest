@@ -65,7 +65,7 @@ with open('samTemplate_node.yaml') as template:
                 output.write(line)
     output.close()
 template.close()
-with open('output_template.yaml', 'w') as output:
+with open('output_template.yaml', 'r') as output:
     response = s3.put_object(
         Body=output.read(),
         Bucket=target_bucket,
